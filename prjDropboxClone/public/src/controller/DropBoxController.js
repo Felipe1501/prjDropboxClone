@@ -360,6 +360,8 @@ class DropBoxController {
         <div class="name text-center">${file.name}</div>
       `
 
+        this.initEventsLi(li);
+
         return li;
     }
 
@@ -380,6 +382,55 @@ class DropBoxController {
 
                 this.listFilesEl.appendChild(this.getFileView(data, key));
             });
+        });
+
+    }
+
+    //função que irá mostrar o arquivo que foi selecionado
+    initEventsLi(li){
+
+        li.addEventListener('click', e => {
+            
+            if (e.shiftKey) {
+
+                let firstLi = this.listFilesEl.querySelector('.selected');
+
+                if (firstLi){
+
+                    let indexStart;
+                    let indexEnd;
+                    let lis = li.parentElement.childNodes;
+
+                    lis.forEach((el, index) => {
+                        if (firstLi === el) indexStart = index;
+                        if (li === el) indexEnd = index;
+                    });
+
+                    let index = [indexStart, indexEnd].sort();
+
+                    lis.forEach((el, i) => {
+                        if(i >= index[0] && i <= index[1]) {
+                            el.classList.add('selected');
+                        }
+                    });
+                    return true;
+                }
+
+            }
+            
+            //se o usuário clicou no item e nao estava segurando o ctrl, 
+            if (!e.ctrlKey){
+                //vai procurar todos os itens selecionados
+                this.listFilesEl.querySelectorAll('li.selected').forEach(el => {
+                    //remove a classe um por um
+                    el.classList.remove('selected');
+
+                });
+
+            }
+            //faz o toggle do selected apenas do item que foi clicado
+            li.classList.toggle('selected');
+
         });
 
     }
