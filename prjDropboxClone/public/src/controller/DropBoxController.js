@@ -15,7 +15,7 @@ class DropBoxController {
         this.listFilesEl = document.querySelector('#list-of-files-and-directories');
 
         this.btnNewFolder = document.querySelector('#btn-new-folder');
-        this.bntRename = document.querySelector('#btn-rename');
+        this.btnRename = document.querySelector('#btn-rename');
         this.btnDelete = document.querySelector('#btn-delete');
 
 
@@ -96,10 +96,11 @@ class DropBoxController {
                 
                 responses.forEach(response => {
                     if (response.fields.key){
+
                         this.getFirebaseRef().child
                         (response.fields.key).remove();
                     }
-                })
+                });
 
                 console.log(responses);
             }).catch(err => {
@@ -199,8 +200,6 @@ class DropBoxController {
     ajax(url, method = 'GET', formData = new FormData(), onprogress = function(){}, onloadstart = function(){}){
 
         return new Promise((resolve, reject) => {
-
-
 
             let ajax = new XMLHttpRequest();
 
@@ -506,10 +505,7 @@ class DropBoxController {
     initEventsLi(li){
 
         li.addEventListener('click', e => {
-            
-            
-
-            
+               
             
             //if se o usuário clicou no item e estava segurando o shift, 
             if (e.shiftKey) {
