@@ -56,7 +56,7 @@ class DropBoxController {
             let folderRef = this.getFirebaseRef(ref + '/' + name);
 
             folderRef.on('value', snapshot => {
-                
+
                 folderRef.off('value');
 
                 snapshot.forEach(item =>{
@@ -668,7 +668,7 @@ class DropBoxController {
                 break;
 
                 default:
-                    window.open('/file?path=' + file.path);
+                    window.open(file.path);
 
             }
 
